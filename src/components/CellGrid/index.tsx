@@ -1,3 +1,4 @@
+import Cell from './Cell';
 import { useMemo } from 'react';
 import { Props } from './types';
 import S from './styles';
@@ -9,22 +10,29 @@ const CellGrid = (props: Props) => {
     const columns = useMemo(() => Array.from({ length: maxColumn + 1 }, (_, i) => i), [maxColumn]);
     const rows = useMemo(() => Array.from({ length: maxRow + 1 }, (_, i) => i), [maxRow]);
 
+    const values = useMemo(
+        () => Object.assign({}, ...props.cells.map((cell) => ({ [`${cell.column}-${cell.row}`]: cell.cell }))),
+        [props.cells],
+    );
+
     return (
-        <S.Columns>
-            {columns.map((columnIndex) => (
-                <S.Rows key={columnIndex}>
-                    {rows.map((rowIndex) => (
+        <S.Rows>
+            {rows.map((rowIndex) => (
+                <S.Columns key={rowIndex}>
+                    {columns.map((columnIndex) => (
                         <S.Cell
-                            hasBottomBorder={columnIndex === columns.length - 1}
-                            hasRightBorder={rowIndex === rows.length - 1}
+                            hasBottomBorder={rowIndex === rows.length - 1}
+                            hasRightBorder={columnIndex === columns.length - 1}
                             key={rowIndex}
                         >
-                            {'Value'}
+                            {values[`${columnIndex}-${rowIndex}`] ? (
+                                <Cell cell={values[`${columnIndex}-${rowIndex}`]} />
+                            ) : null}
                         </S.Cell>
                     ))}
-                </S.Rows>
+                </S.Columns>
             ))}
-        </S.Columns>
+        </S.Rows>
     );
 };
 

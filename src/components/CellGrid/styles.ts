@@ -15,10 +15,10 @@ export default {
     `,
     Columns: styled.div`
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
     `,
     Rows: styled.div`
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
     `,
 };
