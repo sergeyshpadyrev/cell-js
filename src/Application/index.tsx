@@ -6,7 +6,7 @@ const Application = () => {
         <S.Container>
             <CellGrid
                 cells={[
-                    { column: 0, cell: async () => ({ value: 'A' }), row: 0 },
+                    { column: 0, cell: async () => ({ style: { backgroundColor: 'red' }, value: 'A' }), row: 0 },
                     { column: 2, cell: async () => ({ value: 'B' }), row: 3 },
                     { column: 3, cell: async () => ({ value: 'C' }), row: 4 },
                     { column: 5, cell: async () => ({ value: 'D' }), row: 6 },

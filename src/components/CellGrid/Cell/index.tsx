@@ -1,14 +1,20 @@
-import { useEffect, useState } from 'react';
+import { CellResult } from '../../../types';
 import { Props } from './types';
+import S from './styles';
+import { useEffect, useState } from 'react';
 
 const Cell = (props: Props) => {
-    const [value, setValue] = useState('');
+    const [result, setResult] = useState<CellResult>();
 
     useEffect(() => {
-        props.cell().then((result) => setValue(result.value ?? ''));
+        props.cell().then((result) => setResult(result));
     }, [props.cell]);
 
-    return <div>{value}</div>;
+    return (
+        <S.Container style={result?.style}>
+            <div>{result?.value}</div>
+        </S.Container>
+    );
 };
 
 export default Cell;
